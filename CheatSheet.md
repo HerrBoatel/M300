@@ -112,6 +112,10 @@ _Kursiver Text_
 - Erster Punkt
 - Zweiter Punkt
 - Dritter Punkt
+
+1. Nummerierter Punkt 1
+2. Nummerierter Punkt 2
+3. Nummerierter Punkt 3
 ```
 <!-------------------------------------------------------------->
 <!-------------------------------------------------------------->
@@ -120,6 +124,8 @@ _Kursiver Text_
 
 ```markdown
 [Linkbeschreibung](https://www.beispiel.de)
+
+[Link mit Titel](https://www.beispiel.de "Titel des Links")
 ```
 <!-------------------------------------------------------------->
 <!-------------------------------------------------------------->
@@ -128,19 +134,29 @@ _Kursiver Text_
 
 ```markdown
 ![Bildbeschreibung](pfad/zum/bild.jpg)
+
+![Bild mit Titel](pfad/zum/bild.jpg "Titel des Bildes")
 ```
 <!-------------------------------------------------------------->
 <!-------------------------------------------------------------->
 
 ## Codeblöcke
 
-```markdown
-`einzeiliger Code`
+```python
+Einzeiliger Code: `code`
+
+Mehrzeiliger Code:
 
     ```python
     def funktion():
         print("Hallo, Welt!")
     ```
+
+Codeblock mit Syntaxhervorhebung:
+
+```python
+def funktion():
+    print("Hallo, Welt!")
 ```
 <!-------------------------------------------------------------->
 <!-------------------------------------------------------------->
@@ -158,6 +174,31 @@ _Kursiver Text_
 ```markdown
 ---
 ```
+
+## Tabellen
+
+```markdown
+| Spalte 1 | Spalte 2 | Spalte 3 |
+|----------|----------|----------|
+| Inhalt 1 | Inhalt 2 | Inhalt 3 |
+| Inhalt 4 | Inhalt 5 | Inhalt 6 |
+```
+## Checkboxen
+
+```markdown
+- [x] Aufgabe erledigt
+- [ ] Aufgabe ausstehend
+```
+## Mathematische Formeln
+
+Markdown unterstützt mathematische Formeln mit LaTeX-Syntax. Du kannst Formeln innerhalb von $$ oder \( und \) einfügen. Hier ist ein Beispiel:
+
+```markdown
+$$
+E = mc^2
+$$
+```
+
 <!----------------- Markdown Cheatsheet End -------------------->
 <!-------------------------------------------------------------->
 
