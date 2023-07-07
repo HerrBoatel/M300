@@ -25,6 +25,8 @@
   - [Service Anwendung](#service-anwendung)
     - [Logischer Plan](#logischer-plan)
       - [Beispiel](#beispiel)
+  - [Docker-Compose-file](#docker-compose-file)
+    - [Wordpress-Service](#wordpress-service)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -144,5 +146,156 @@ Wie man sieht hat es hier mehrere Netzwerke. Wichtig ist zu wissen das man die v
 #### Beispiel
 **(MaschinenIP:Port-der-Applikation)** = **(192.168.1.10:8000)**
 
+## Docker-Compose-file
+Das wäre das Docker Compose File:
 [Docker-Compose-file](docker-compose.yaml)
-Das Docker-Compose File
+```yaml
+version: '3'
+
+services:
+  # ------------------ Wordpress Service ------------------------
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    container_name: wordpress
+    restart: always
+    # Definiert das Envoirement
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    # Definiert die Reccourcen und Limite
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+    # Definiert das Volume
+    volumes:
+        - wp_data:/var/www/html
+    # Definiert die Ports
+    ports:
+      - '8000:80'
+    # Definiert das Netzwerk
+    networks:
+      - wpnetwork
+  # ----------------- Datenbank Server ---------------------------
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: unless-stopped
+    # Definiert das Envoirement
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    # Definiert die Reccourcen und Limite
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+    # Definiert das Volume
+    volumes:
+      - db_data:/var/lib/mysql
+    # Definiert die Ports
+    ports:
+      - '3306:3306'
+    # Definiert das Netzwerk
+    networks:
+      - wpnetwork
+    # ---------------- phpmyadmin service ------------------------
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    # Definiert das Envoirement
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: wordpress
+    # Definiert die Reccourcen und Limite
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+    # Definiert die Ports
+    ports:
+      - '8080:80'
+    # Definiert das Netzwerk
+    networks:
+      - wpnetwork
+# Speicher Volume
+volumes:
+  db_data:
+    driver: local
+  wp_data:
+    driver: local
+# Netzwerk
+networks:
+  wpnetwork:
+    driver: bridge
+```
+Nun wird der Aufbau des Docker Compose File beschrieben: 
+
+### Wordpress-Service
+```yaml
+# ------------------ Wordpress Service ------------------------
+wordpress:
+depends_on:
+    - db
+image: wordpress:latest
+container_name: wordpress
+restart: always
+# Definiert das Envoirement
+environment:
+    WORDPRESS_DB_HOST: db:3306
+    WORDPRESS_DB_USER: wordpress
+    WORDPRESS_DB_PASSWORD: wordpress
+    WORDPRESS_DB_NAME: wordpress
+# Definiert die Reccourcen und Limite
+deploy:
+    resources:
+    limits:
+        cpus: '1'
+        memory: 500M
+    reservations:
+        cpus: '0.5'
+        memory: 200M
+# Definiert das Volume
+volumes:
+    - wp_data:/var/www/html
+# Definiert die Ports
+ports:
+    - '8000:80'
+# Definiert das Netzwerk
+networks:
+    - wpnetwork
+```
+In diesem Abschnitt wird eine Docker-Compose-Konfigurationsdatei für die Bereitstellung von WordPress definiert. Hier ist eine Zusammenfassung der verschiedenen Einstellungen:
+
+- `depends_on`: Gibt an, dass der WordPress-Container vom `db`-Container abhängt, der vermutlich eine Datenbank wie MySQL enthält.
+- `image`: Gibt das Docker-Image an, das für den WordPress-Container verwendet werden soll. Hier wird die neueste Version von WordPress verwendet.
+- `container_name`: Legt den Namen des Containers auf "wordpress" fest.
+- `restart`: Definiert die Neustartpolitik für den Container, in diesem Fall "always" (immer neu starten).
+- `environment`: Hier werden Umgebungsvariablen festgelegt, die von WordPress verwendet werden, um auf die Datenbank zuzugreifen. Es werden der Host (`db:3306`), der Benutzername, das Passwort und der Datenbankname angegeben.
+- `deploy`: Hier werden Ressourcenbegrenzungen und -reservierungen festgelegt, um die Nutzung von CPU und Speicher für den Container zu steuern.
+- `volumes`: Definiert ein Volume mit dem Namen "wp_data", das verwendet wird, um den WordPress-Container mit dem Verzeichnis `/var/www/html` zu verbinden.
+- `ports`: Gibt an, dass der Port 8000 des Hosts auf den Port 80 des WordPress-Containers abgebildet werden soll, was bedeutet, dass die WordPress-Website über Port 8000 aufgerufen werden kann.
+- `networks`: Hier wird das Netzwerk "wpnetwork" angegeben, das verwendet wird, um den WordPress-Container mit anderen Containern zu verbinden.
+
+Zusammenfassend wird in diesem Abschnitt eine Docker-Compose-Konfiguration definiert, um einen WordPress-Container mit einer Datenbank-Abhängigkeit, spezifischen Umgebungsvariablen, Ressourcenbegrenzungen und -reservierungen, Volumenverbindung, Portweiterleitung und Netzwerkverbindung zu erstellen.
