@@ -14,9 +14,12 @@
 - [Informieren](#informieren)
   - [Docker](#docker)
     - [Dockerfile](#dockerfile)
+  - [Docker-Compose](#docker-compose)
+  - [Wordpress](#wordpress)
 - [LB2-Container](#lb2-container)
   - [Auftrag](#auftrag)
     - [Service-Anforderungen](#service-anforderungen)
+    - [Bewertungsraster](#bewertungsraster)
   - [Service Beschreibung](#service-beschreibung)
     - [Zweck](#zweck)
   - [Service Anwendung](#service-anwendung)
@@ -60,7 +63,26 @@ Es enthält eine Reihe von Anweisungen, die beschreiben, wie das Image erstellt 
 
 Durch das Erstellen eines Dockerfiles können Entwickler und Systemadministratoren den Aufbau und die Konfiguration eines Docker-Images automatisieren, wodurch die Wiederverwendbarkeit und Portabilität der Anwendungen verbessert wird.
 
-![Docker-Aufbaue](https://miro.medium.com/v2/resize:fit:1400/0*CP98BIIBgMG2K3u5.png)
+![Docker-File](https://miro.medium.com/v2/resize:fit:1400/0*CP98BIIBgMG2K3u5.png)
+
+## Docker-Compose
+Was ist Docker-Compose??
+Docker Compose ist ein Tool, das die Verwaltung und Orchestrierung von Docker-Anwendungen vereinfacht. Mit Docker Compose können Sie eine Anwendung definieren, die aus mehreren Containern besteht, und die Konfiguration dieser Container in einer einzigen Datei speichern. 
+
+Diese Datei, normalerweise als "docker-compose.yml" bezeichnet, enthält Informationen über die Dienste, Netzwerke und Volumes, die Ihre Anwendung benötigt. Docker Compose ermöglicht es Ihnen, alle Container mit nur einem Befehl zu starten, zu stoppen und zu verwalten. 
+
+Es erleichtert auch die Kommunikation zwischen den Containern und bietet Funktionen wie Skalierung, Lastenausgleich und Protokollierung. Durch die Verwendung von Docker Compose wird die Bereitstellung und Verwaltung von mehreren Containern als eine Einheit vereinfacht.
+
+![Docker-Compose](https://www.biaudelle.fr/wp-content/uploads/2021/07/docker-compose-archi.png)
+
+## Wordpress
+Was ist Wordpress? 
+WordPress ist eine Open-Source-Plattform zur Erstellung von Websites und Blogs. Es bietet eine benutzerfreundliche Oberfläche und eine Vielzahl von Funktionen, die es Benutzern ermöglichen, Inhalte zu veröffentlichen, das Design anzupassen und Erweiterungen hinzuzufügen, um die Funktionalität ihrer Websites zu erweitern. 
+
+WordPress basiert auf der Programmiersprache PHP und verwendet eine Datenbank, um Inhalte und Einstellungen zu speichern. Es ist sehr beliebt und weit verbreitet und wird von Einzelpersonen, Unternehmen und Organisationen für die Erstellung verschiedener Arten von Websites verwendet, darunter Blogs, Unternehmenswebsites, E-Commerce-Shops und vieles mehr.
+
+![Wordpress](https://ithemes.com/wp-content/uploads/2022/11/WordPress-themes-1024x608.png)
+
 # LB2-Container
 ## Auftrag
 Sie erstellen ein selbst gewähltes Projekt, welches auf der Docker **Container- Technologie** basiert.
@@ -92,6 +114,10 @@ Docker-Compose installiert haben.
 Dokumentation beschrieben.
 - Die Funktion und Anwendung ist in der Projektdokumentation beschrieben.
 - Sämtlicher Code ist in der Projektdokumentation beschrieben.
+
+### Bewertungsraster
+Hier ist der Link zum Bewertungsraster:  
+[Bewertungsraster / Leistungsbeurteilung](https://tbzedu.sharepoint.com/sites/M300_Documents/Freigegebene%20Dokumente/Forms/AllItems.aspx?id=%2Fsites%2FM300%5FDocuments%2FFreigegebene%20Dokumente%2FLeistungsbeurteilung%2FBewertung%20LB2%5F1%5F3%2Epdf&parent=%2Fsites%2FM300%5FDocuments%2FFreigegebene%20Dokumente%2FLeistungsbeurteilung&p=true&ga=1)
 
 ## Service Beschreibung
 Der Service den wir Umsetzen möchten setzt sich aus 3 Komponenten zusammen. 
