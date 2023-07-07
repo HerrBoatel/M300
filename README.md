@@ -11,6 +11,9 @@
   - [Danksagung](#danksagung)
   - [Über-dieses-Dokument](#über-dieses-dokument)
   - [Modulidentifikation](#modulidentifikation)
+- [Informieren](#informieren)
+  - [Docker](#docker)
+    - [Dockerfile](#dockerfile)
 - [LB2-Container](#lb2-container)
   - [Auftrag](#auftrag)
     - [Service-Anforderungen](#service-anforderungen)
@@ -40,6 +43,24 @@ In diesem Dokument stehen alle Informationen in Bezug auf die LB3 und das Modul 
 | Modulversion | 3.0 |
 | Erstellt am | 11.02.2021 |
 
+# Informieren
+## Docker
+Was ist eigentlich Docker??
+Docker ist eine Open-Source-Plattform, mit der Entwickler Anwendungen in sogenannten Containern erstellen, bereitstellen und ausführen können. Container sind eigenständige und isolierte Umgebungen, die alle erforderlichen Abhängigkeiten enthalten, um Anwendungen reibungslos auf verschiedenen Systemen auszuführen. 
+
+Docker vereinfacht die Bereitstellung von Anwendungen, da Container tragbar, leichtgewichtig und schnell startbar sind. Dadurch können Entwickler Anwendungen schneller entwickeln, testen und bereitstellen, unabhängig von der zugrunde liegenden Infrastruktur.
+
+![Docker-Aufbaue](https://miro.medium.com/v2/resize:fit:1400/0*5tspNCOuENlSjAgg)
+
+### Dockerfile
+Was ist ein Dockerfile? 
+Ein Dockerfile ist eine Textdatei, die verwendet wird, um den Aufbau eines Docker-Images zu definieren. 
+
+Es enthält eine Reihe von Anweisungen, die beschreiben, wie das Image erstellt werden soll. Ein Dockerfile enthält typischerweise Informationen wie das Basisimage, das verwendet werden soll, die Befehle zum Hinzufügen von Dateien und Anwendungscode, das Ausführen von Installationen oder Konfigurationen und die Festlegung der Befehle, die beim Starten des Containers ausgeführt werden sollen.
+
+Durch das Erstellen eines Dockerfiles können Entwickler und Systemadministratoren den Aufbau und die Konfiguration eines Docker-Images automatisieren, wodurch die Wiederverwendbarkeit und Portabilität der Anwendungen verbessert wird.
+
+![Docker-Aufbaue](https://miro.medium.com/v2/resize:fit:1400/0*CP98BIIBgMG2K3u5.png)
 # LB2-Container
 ## Auftrag
 Sie erstellen ein selbst gewähltes Projekt, welches auf der Docker **Container- Technologie** basiert.
@@ -87,4 +108,4 @@ Der Zweck dieses Service ist es eine Wordpress Umgebung zu erstellen wo man einf
 Umgebung die Umgebung wird mit Docker-Compose gestartet. Hierbei wird im Hintergrund das Docker-Compose File das ich & Kai erstellt haben ausgeführt und durchgearbeitet. Hierbei werden die 3 verschiedenen Services gestartet. Zuerst wird das Image gepulled von den jeweiligen Services. Dannach findet die Konfiguration statt. 
 
 ### Logischer Plan
-Hier ist der Logische Plan dieser Umgebung. Er zeigt auf wie die Verbindungen aussehen und über welche Ports diese laufen. 
+Hier ist der Logische Plan dieser Umgebung. Er zeigt wie die Services in Verbindung stehen. Er zeigt auch auf über welche Prtos die Services laufen.
