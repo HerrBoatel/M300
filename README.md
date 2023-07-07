@@ -4,8 +4,23 @@
 <!-- Datum: 05.06.2023                                        -->
 <!-- Beschreibung: Dies ist das README File von diesem Repo   -->
 <!-------------------------------------------------------------->
+# Inhaltsverzeichnis
+- [Inhaltsverzeichnis](#inhaltsverzeichnis)
+- [Vorwort](#vorwort)
+  - [Danksagung](#danksagung)
+  - [Über-dieses-Dokument](#über-dieses-dokument)
+  - [Modulidentifikation](#modulidentifikation)
 
-# Modulidentifikation
+# Vorwort
+## Danksagung
+An dieser Stelle möchte ich meine aufrichtige Dankbarkeit und Anerkennung für Kai's herausragende Mitarbeit zum Ausdruck bringen. Kai hat einen massgeblichen Beitrag zum Erfolg unseres Projekts geleistet und ich möchte ihm persönlich für seine grossartige Zusammenarbeit danken.
+
+Kai, es war eine wahre Freude, mit dir gemeinsam an diesem Projekt zu arbeiten. Deine positive Einstellung, dein Enthusiasmus und dein Sinn für Humor haben die Arbeitsatmosphäre bereichert und dafür gesorgt, dass das gesamte Team mit Freude und Motivation an die Umsetzung herangegangen ist. Deine Begeisterung und Leidenschaft für das Projekt waren ansteckend und haben uns alle dazu inspiriert, unser Bestes zu geben.
+
+## Über-dieses-Dokument
+In diesem Dokument stehen alle Informationen in Bezug auf die LB3 und das Modul 300. Die Dokumentation ist per IPERKA aufgebaut. 
+
+## Modulidentifikation
 
 | Begriffe | Beschreibung |
 |----------|----------|
