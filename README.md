@@ -28,6 +28,9 @@
   - [Docker-Compose-file](#docker-compose-file)
     - [Wordpress-Service](#wordpress-service)
     - [Mysql Service](#mysql-service)
+    - [PhpMyadmin Service](#phpmyadmin-service)
+    - [Speicher Volumes](#speicher-volumes)
+    - [Netzwerk](#netzwerk)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -345,3 +348,90 @@ In diesem Abschnitt wird eine Docker-Compose-Konfigurationsdatei für die Bereit
 - `networks`: Hier wird das Netzwerk "wpnetwork" angegeben, das verwendet wird, um den Datenbank-Container mit anderen Containern zu verbinden.
 
 Zusammenfassend wird in diesem Abschnitt eine Docker-Compose-Konfiguration definiert, um einen MySQL-Datenbank-Container mit spezifischen Umgebungsvariablen, Ressourcenbegrenzungen und -reservierungen, Volumenverbindung, Portweiterleitung und Netzwerkverbindung zu erstellen.
+
+### PhpMyadmin Service
+```yaml
+ # ---------------- phpmyadmin service ------------------------
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    # Definiert das Envoirement
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: wordpress
+    # Definiert die Reccourcen und Limite
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+    # Definiert die Ports
+    ports:
+      - '8080:80'
+    # Definiert das Netzwerk
+    networks:
+      - wpnetwork
+# Speicher Volume
+volumes:
+  db_data:
+    driver: local
+  wp_data:
+    driver: local
+# Netzwerk
+networks:
+  wpnetwork:
+    driver: bridge
+```
+In diesem Abschnitt wird eine Docker-Compose-Konfigurationsdatei für den PHPMyAdmin-Dienst definiert. Hier ist eine Zusammenfassung der verschiedenen Einstellungen:
+
+- `depends_on`: Gibt an, dass der PHPMyAdmin-Container vom "db"-Container abhängt, der die MySQL-Datenbank enthält.
+- `image`: Gibt das Docker-Image an, das für den PHPMyAdmin-Container verwendet werden soll. Hier wird die neueste Version von PHPMyAdmin verwendet.
+- `container_name`: Legt den Namen des Containers auf "phpmyadmin" fest.
+- `restart`: Definiert die Neustartpolitik für den Container, in diesem Fall "always" (immer neu starten).
+- `environment`: Hier werden Umgebungsvariablen festgelegt, wie der Hostname der Datenbank ("db") und das Root-Passwort der MySQL-Datenbank.
+- `deploy`: Hier werden Ressourcenbegrenzungen und -reservierungen festgelegt, um die Nutzung von CPU und Speicher für den Container zu steuern.
+- `ports`: Gibt an, dass der Port 8080 des Hosts auf den Port 80 des PHPMyAdmin-Containers abgebildet werden soll, was bedeutet, dass der PHPMyAdmin-Dienst über Port 8080 erreichbar ist.
+- `networks`: Hier wird das Netzwerk "wpnetwork" angegeben, das verwendet wird, um den PHPMyAdmin-Container mit anderen Containern zu verbinden.
+
+Darüber hinaus werden im Code Abschnitte für die Volumes- und Netzwerkkonfiguration definiert. Es werden Volumes mit den Namen "db_data" und "wp_data" erstellt, die lokal (auf dem Host) gespeichert werden. Zudem wird das Netzwerk "wpnetwork" mit dem Bridge-Treiber für die Containerkommunikation erstellt.
+
+Zusammenfassend wird in diesem Abschnitt eine Docker-Compose-Konfiguration definiert, um einen PHPMyAdmin-Container mit Abhängigkeit von der MySQL-Datenbank, spezifischen Umgebungsvariablen, Ressourcenbegrenzungen und -reservierungen, Portweiterleitung und Netzwerkverbindung zu erstellen. Es werden auch Volumes und ein Netzwerk für die allgemeine Verwendung definiert.
+
+### Speicher Volumes
+```yaml
+# Speicher Volume
+volumes:
+  db_data:
+    driver: local
+  wp_data:
+    driver: local
+```
+In diesem Teil des Codes werden Volumes für die Speicherung von Daten definiert. Hier ist eine Zusammenfassung der Konfiguration:
+
+- `volumes`: Dieses Schlüsselwort definiert die Volumes für die Speicherung von Daten.
+- `db_data`: Hier wird ein Volume mit dem Namen "db_data" definiert. Es wird als Speicherort für Daten der Datenbank verwendet.
+- `driver: local`: Dieser Eintrag definiert den Treiber für das Volume als "local", was bedeutet, dass das Volume auf dem lokalen Hostspeicher erstellt wird.
+- `wp_data`: Hier wird ein weiteres Volume mit dem Namen "wp_data" definiert. Es dient als Speicherort für Daten, die von WordPress verwendet werden.
+
+Zusammenfassend werden in diesem Abschnitt Volumes erstellt, um Daten für die Datenbank und für WordPress zu speichern. Die Volumes werden mit dem lokalen Treiber konfiguriert, was bedeutet, dass sie auf dem lokalen Hostspeicher erstellt werden.
+
+### Netzwerk
+```yaml
+# Netzwerk
+networks:
+  wpnetwork:
+    driver: bridge
+```
+In diesem Teil des Codes wird ein Netzwerk für die Docker-Container definiert. Hier ist eine Zusammenfassung der Konfiguration:
+
+- `networks`: Dieses Schlüsselwort definiert die Netzwerke für die Container.
+- `wpnetwork`: Hier wird ein Netzwerk mit dem Namen "wpnetwork" definiert.
+- `driver: bridge`: Dieser Eintrag definiert den Treiber für das Netzwerk als "bridge". Der Bridge-Treiber erstellt ein isoliertes Netzwerk, in dem die Container miteinander kommunizieren können.
+
+Zusammenfassend wird in diesem Abschnitt ein Netzwerk mit dem Namen "wpnetwork" definiert, das als Bridge-Treiber konfiguriert ist. Dieses Netzwerk ermöglicht die Kommunikation zwischen den Containern, die in der Docker-Compose-Datei definiert sind.
