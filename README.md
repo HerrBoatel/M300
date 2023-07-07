@@ -31,6 +31,8 @@
     - [PhpMyadmin Service](#phpmyadmin-service)
     - [Speicher Volumes](#speicher-volumes)
     - [Netzwerk](#netzwerk)
+    - [Docker-Sicherheitsmassnahmen](#docker-sicherheitsmassnahmen)
+      - [Meine-Sicherheitsmerkmale](#meine-sicherheitsmerkmale)
   - [Docker-Container-aufsetzen](#docker-container-aufsetzen)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
@@ -436,6 +438,55 @@ In diesem Teil des Codes wird ein Netzwerk für die Docker-Container definiert. 
 - `driver: bridge`: Dieser Eintrag definiert den Treiber für das Netzwerk als "bridge". Der Bridge-Treiber erstellt ein isoliertes Netzwerk, in dem die Container miteinander kommunizieren können.
 
 Zusammenfassend wird in diesem Abschnitt ein Netzwerk mit dem Namen "wpnetwork" definiert, das als Bridge-Treiber konfiguriert ist. Dieses Netzwerk ermöglicht die Kommunikation zwischen den Containern, die in der Docker-Compose-Datei definiert sind.
+
+### Docker-Sicherheitsmassnahmen
+Docker ist eine beliebte Containerisierungsplattform, die es ermöglicht, Anwendungen in isolierten Umgebungen auszuführen. Um die Sicherheit von Docker-Containern zu gewährleisten, werden verschiedene Maßnahmen ergriffen, um Ressourcenbeschränkungen und andere Sicherheitsaspekte zu berücksichtigen. Hier sind einige wichtige Sicherheitsmaßnahmen im Zusammenhang mit Ressourcenbegrenzungen in Docker:
+
+1. Ressourcenbeschränkung: Docker ermöglicht die Begrenzung von Ressourcen wie CPU, Arbeitsspeicher und Festplattenspeicher für einzelne Container. Durch die Festlegung von Grenzwerten können Ressourcenkonflikte zwischen Containern vermieden und die Systemstabilität verbessert werden.
+
+2. CPU-Beschränkung: Mit der CPU-Begrenzung kann die Menge an Prozessorzeit begrenzt werden, die ein Container verwenden kann. Dadurch wird sichergestellt, dass ein einzelner Container nicht die gesamte CPU-Kapazität des Host-Systems beansprucht und andere Container oder Prozesse beeinträchtigt.
+
+3. Arbeitsspeicherbeschränkung: Durch die Begrenzung des Arbeitsspeichers, den ein Container verwenden kann, wird sichergestellt, dass der Container nicht zu viel Speicher belegt und andere Container oder das Host-System destabilisiert. Docker ermöglicht die Festlegung von Begrenzungen für den gesamten Arbeitsspeicher und den Swap-Speicher.
+
+4. Blockierung von Ressourcenausbeutung: Docker enthält Mechanismen, um Ressourcenausbeutung zu verhindern. Dazu gehören die Verwendung von Cgroups (Control Groups) zur Begrenzung von Ressourcen und die Verhinderung von DDoS-Angriffen (Distributed Denial of Service) durch Überbeanspruchung der Ressourcen eines Containers.
+
+5. Netzwerkisolierung: Docker bietet standardmäßig eine isolierte Netzwerkumgebung für Container. Diese Isolierung verhindert, dass Container auf Netzwerkressourcen anderer Container oder des Host-Systems zugreifen können. Durch die Implementierung von Netzwerkrichtlinien können Administrator*innen den Datenverkehr zwischen Containern steuern und unerwünschte Verbindungen verhindern.
+
+6. Zugriffsbeschränkung auf Host-Ressourcen: Docker erlaubt es, den Zugriff eines Containers auf Host-Ressourcen wie Dateien, Verzeichnisse oder Geräte einzuschränken. Durch das sorgfältige Festlegen von Berechtigungen und das Verwenden von Containervolumes können potenzielle Sicherheitslücken minimiert werden.
+
+7. Aktualisierung von Docker-Images und -Containern: Die regelmäßige Aktualisierung von Docker-Images und -Containern ist wichtig, um bekannte Sicherheitslücken zu schließen und von den neuesten Sicherheitsverbesserungen zu profitieren. Es wird empfohlen, Sicherheitsupdates und Patches zeitnah einzuspielen.
+
+Diese Sicherheitsmaßnahmen helfen dabei, die Integrität, Vertraulichkeit und Verfügbarkeit von Docker-Containern und der darin ausgeführten Anwendungen zu gewährleisten. Es ist wichtig, diese bewährten Verfahren zu befolgen und kontinuierlich auf neue Sicherheitsbedrohungen und empfohlene Sicherheitsmaßnahmen zu achten.
+
+#### Meine-Sicherheitsmerkmale
+
+1. Abhängigkeiten und Reihenfolge: Der WordPress-Dienst ist von der Datenbank abhängig (definiert durch `depends_on`). Dadurch wird sichergestellt, dass die Datenbank vor dem Start von WordPress bereitgestellt wird.
+
+2. Neustartpolitik: Der WordPress- und der phpMyAdmin-Dienst sind auf `always` eingestellt, während der Datenbankdienst auf `unless-stopped` eingestellt ist. Dies gewährleistet, dass die Dienste automatisch neu gestartet werden, falls sie aus irgendeinem Grund beendet werden.
+
+3. Umgebungsvariablen: Die sensiblen Daten wie Datenbank-Host, Benutzername, Passwort und Datenbankname werden als Umgebungsvariablen definiert. Dadurch werden sensible Informationen nicht direkt im Code angezeigt, sondern können über Umgebungsvariablen verwaltet werden.
+
+4. Ressourcenbeschränkungen: 
+```yaml
+    # Definiert die Reccourcen und Limite
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+```
+Die Ressourcenlimits und -reservierungen für die Container werden definiert. Sowohl der WordPress- als auch der phpMyAdmin-Dienst haben CPU- und Speicherlimits, um eine übermäßige Nutzung zu verhindern und die Systemstabilität zu gewährleisten.
+
+5. Volumes: Die WordPress- und MySQL-Container verwenden Volumes, um Daten persistent zu speichern. Dadurch werden Datenverluste vermieden und ermöglicht ein einfacheres Backup und Wiederherstellung von Daten.
+
+6. Netzwerkisolierung: Die Container sind Teil eines eigenen Netzwerks (`wpnetwork`). Dadurch werden die Container voneinander und von anderen Containern oder Diensten isoliert. Es wird vermieden, dass Container über unsichere Netzwerke kommunizieren können.
+
+7. Aktualisierte Images: Die neuesten Versionen der Docker-Images für WordPress, MySQL und phpMyAdmin werden verwendet. Es ist wichtig, regelmäßig Updates durchzuführen, um bekannte Sicherheitslücken zu schließen.
+
+Es ist zu beachten, dass die Sicherheit von Docker-Containern nicht nur von der Konfiguration in der Docker-Compose-Datei abhängt. Es gibt weitere Sicherheitsaspekte, wie das Härten des Host-Betriebssystems, das Überwachen von Sicherheitslücken, das Patchen von Anwendungen und das Implementieren von Zugriffskontrollen, die ebenfalls berücksichtigt werden sollten.
 
 ## Docker-Container-aufsetzen
 Nun um diese Umgebung zu starten geht man auf die aufgesetze Maschine mit installierter Docker Engine. Falls diese noch nicht installiert ist wäre hier eine Anleitung für das Installieren der Docker Engine sowie Docker Compose:
