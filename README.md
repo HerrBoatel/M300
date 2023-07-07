@@ -15,6 +15,9 @@
   - [Auftrag](#auftrag)
     - [Service-Anforderungen](#service-anforderungen)
   - [Service Beschreibung](#service-beschreibung)
+    - [Zweck](#zweck)
+  - [Service Anwendung](#service-anwendung)
+    - [Logischer Plan](#logischer-plan)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -76,3 +79,12 @@ Der Service den wir Umsetzen möchten setzt sich aus 3 Komponenten zusammen.
 - **Wordpress**
 
 Mit diesen 3 Komponenten werde ich eine Wordpress Umgebung aufbauen. Das Ziel dieser Wordpress Umgebung ist es die verschiedenen Service zusammenführen und ein ganzes Netzwerk zu bauen. Da es im Auftrag drum geht eine Komplexe Umgebung zu bauen habe ich mir überelgt diese 3 Komponenten zu benutzen. Wordpress habe ich genommen da es ein CMS mit fertigem WEB Ui ist und einen Integrierten Webserver hat, die ganzen Daten speichere ich in einer Datenbank auf einem Datenbank Server. Dieser ist ein eigenständiger Dockercontainer. Für das Verwalten des MySql Servers verwende ich Phpmyadmin. Dies ist auch ein eigenständiger Container. Für das erstellen der Container verwende ich Docker-Compose. Dort habe ich die 3 verschiedenen Docker definiert. 
+
+### Zweck
+Der Zweck dieses Service ist es eine Wordpress Umgebung zu erstellen wo man einfache Wordpress Websiten erstellen kann. Da das Thema immer mehr aufkommt das ein Unternehmen eine Website braucht und das Thema Wordpress sehr Populär ist habe ich mich für diesen Service entschieden. 
+
+## Service Anwendung
+Umgebung die Umgebung wird mit Docker-Compose gestartet. Hierbei wird im Hintergrund das Docker-Compose File das ich & Kai erstellt haben ausgeführt und durchgearbeitet. Hierbei werden die 3 verschiedenen Services gestartet. Zuerst wird das Image gepulled von den jeweiligen Services. Dannach findet die Konfiguration statt. 
+
+### Logischer Plan
+Hier ist der Logische Plan dieser Umgebung. Er zeigt auf wie die Verbindungen aussehen und über welche Ports diese laufen. 
