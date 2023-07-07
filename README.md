@@ -135,3 +135,5 @@ Umgebung die Umgebung wird mit Docker-Compose gestartet. Hierbei wird im Hinterg
 
 ### Logischer Plan
 Hier ist der Logische Plan dieser Umgebung. Er zeigt wie die Services in Verbindung stehen. Er zeigt auch auf über welche Prtos die Services laufen.
+
+![Logischer-Plan](https://raw.githubusercontent.com/HerrBoatel/m300/main/logischer-plan-m300.png)
