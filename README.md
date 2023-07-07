@@ -31,6 +31,7 @@
     - [PhpMyadmin Service](#phpmyadmin-service)
     - [Speicher Volumes](#speicher-volumes)
     - [Netzwerk](#netzwerk)
+  - [Docker-Container-aufsetzen](#docker-container-aufsetzen)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -435,3 +436,69 @@ In diesem Teil des Codes wird ein Netzwerk für die Docker-Container definiert. 
 - `driver: bridge`: Dieser Eintrag definiert den Treiber für das Netzwerk als "bridge". Der Bridge-Treiber erstellt ein isoliertes Netzwerk, in dem die Container miteinander kommunizieren können.
 
 Zusammenfassend wird in diesem Abschnitt ein Netzwerk mit dem Namen "wpnetwork" definiert, das als Bridge-Treiber konfiguriert ist. Dieses Netzwerk ermöglicht die Kommunikation zwischen den Containern, die in der Docker-Compose-Datei definiert sind.
+
+## Docker-Container-aufsetzen
+Nun um diese Umgebung zu starten geht man auf die aufgesetze Maschine mit installierter Docker Engine. Falls diese noch nicht installiert ist wäre hier eine Anleitung für das Installieren der Docker Engine sowie Docker Compose:
+
+1. Docker: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-de
+2. Docker-Compose: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-de
+
+Sobald man die Docker Engine erfolgreich funktioniert, kann man sobald man das passende Docker-Compose File hat kann man diesen Command ausführen: 
+```bash
+docker-compose up
+```
+Dann sollte folgendes Passieren: 
+```yaml
+WARNING: The following deploy sub-keys are not supported and have been ignored: resources.reservations.cpus
+WARNING: The following deploy sub-keys are not supported and have been ignored: resources.reservations.cpus
+WARNING: The following deploy sub-keys are not supported and have been ignored: resources.reservations.cpus
+Starting db ... done
+phpmyadmin is up-to-date
+wordpress is up-to-date
+Attaching to db, phpmyadmin, wordpress
+wordpress     | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+wordpress     | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+wordpress     | [Fri Jul 07 12:58:24.537068 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.29 configured -- resuming normal operations
+wordpress     | [Fri Jul 07 12:58:24.537211 2023] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+wordpress     | 172.20.10.10 - - [07/Jul/2023:12:59:29 +0000] "GET / HTTP/1.1" 200 11712 "http://172.20.10.13:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+wordpress     | 172.20.10.10 - - [07/Jul/2023:12:59:32 +0000] "GET /wp-admin/about.php HTTP/1.1" 200 12428 "http://172.20.10.13:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+wordpress     | 172.20.10.10 - - [07/Jul/2023:12:59:32 +0000] "GET /wp-admin/load-styles.php?c=0&dir=ltr&load%5Bchunk_0%5D=dashicons,admin-bar,common,forms,admin-menu,dashboard,list-tables,edit,revisions,media,themes,about,nav-menus,wp-pointer,widgets&load%5Bchunk_1%5D=,site-icon,l10n,buttons,wp-auth-check&ver=6.2.2 HTTP/1.1" 200 99394 "http://172.20.10.13:8000/wp-admin/about.php" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+wordpress     | 172.20.10.10 - - [07/Jul/2023:12:59:33 +0000] "GET /wp-admin/images/about-header-about.svg?ver=6.2 HTTP/1.1" 200 5031 "http://172.20.10.13:8000/wp-admin/load-styles.php?c=0&dir=ltr&load%5Bchunk_0%5D=dashicons,admin-bar,common,forms,admin-menu,dashboard,list-tables,edit,revisions,media,themes,about,nav-menus,wp-pointer,widgets&load%5Bchunk_1%5D=,site-icon,l10n,buttons,wp-auth-check&ver=6.2.2" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+wordpress     | [Fri Jul 07 12:59:40.254445 2023] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+wordpress     | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+wordpress     | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+wordpress     | [Fri Jul 07 14:12:30.466414 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.29 configured -- resuming normal operations
+wordpress     | [Fri Jul 07 14:12:30.466559 2023] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+wordpress     | [Fri Jul 07 14:12:57.789361 2023] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+wordpress     | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.2. Set the 'ServerName' directive globally to suppress this message
+wordpress     | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.2. Set the 'ServerName' directive globally to suppress this message
+wordpress     | [Fri Jul 07 20:32:05.312612 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.29 configured -- resuming normal operations
+wordpress     | [Fri Jul 07 20:32:05.313053 2023] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+phpmyadmin    | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+phpmyadmin    | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+phpmyadmin    | [Fri Jul 07 12:58:25.324559 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.57 (Debian) PHP/8.2.7 configured -- resuming normal operations
+phpmyadmin    | [Fri Jul 07 12:58:25.324722 2023] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+phpmyadmin    | [Fri Jul 07 12:59:40.278610 2023] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+phpmyadmin    | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+phpmyadmin    | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+phpmyadmin    | [Fri Jul 07 14:12:30.523291 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.57 (Debian) PHP/8.2.7 configured -- resuming normal operations
+phpmyadmin    | [Fri Jul 07 14:12:30.523618 2023] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+phpmyadmin    | [Fri Jul 07 14:12:57.800190 2023] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+phpmyadmin    | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+phpmyadmin    | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+phpmyadmin    | [Fri Jul 07 20:32:05.076465 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.57 (Debian) PHP/8.2.7 configured -- resuming normal operations
+phpmyadmin    | [Fri Jul 07 20:32:05.076912 2023] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+db            | 2023-07-07 20:50:51+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+db            | 2023-07-07 20:50:52+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+db            | 2023-07-07 20:50:52+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.33-1.el8 started.
+db            | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+db            | 2023-07-07T20:50:53.721137Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+db            | 2023-07-07T20:50:53.739971Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.33) starting as process 1
+db            | 2023-07-07T20:50:53.796655Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+db            | 2023-07-07T20:50:55.368593Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+db            | 2023-07-07T20:50:56.032239Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+db            | 2023-07-07T20:50:56.032864Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+db            | 2023-07-07T20:50:56.041561Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+db            | 2023-07-07T20:50:56.118278Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+db            | 2023-07-07T20:50:56.118279Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+```
