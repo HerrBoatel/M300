@@ -24,6 +24,7 @@
     - [Zweck](#zweck)
   - [Service Anwendung](#service-anwendung)
     - [Logischer Plan](#logischer-plan)
+      - [Beispiel](#beispiel)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -137,3 +138,11 @@ Umgebung die Umgebung wird mit Docker-Compose gestartet. Hierbei wird im Hinterg
 Hier ist der Logische Plan dieser Umgebung. Er zeigt wie die Services in Verbindung stehen. Er zeigt auch auf über welche Prtos die Services laufen.
 
 ![Logischer-Plan](https://raw.githubusercontent.com/HerrBoatel/m300/main/logischer-plan-m300.png)
+
+Wie man sieht hat es hier mehrere Netzwerke. Wichtig ist zu wissen das man die verschiedenen Service über die Maschinen IP erreicht, heisst wo auch immer die Docker Umgebung drauf läuft, die IP Adresse dieser Maschine muss man im Webbrowser mit dem entsprechenden Port angeben um auf die Services und Web-Applikationen zu gelangen. 
+
+#### Beispiel
+**(MaschinenIP:Port-der-Applikation)** = **(192.168.1.10:8000)**
+
+[Docker-Compose-file](docker-compose.yaml)
+Das Docker-Compose File
