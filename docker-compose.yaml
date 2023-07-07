@@ -1,21 +1,35 @@
 version: '3'
 
 services:
-    # Wordpress service
+  # Wordpress Service
   wordpress:
     depends_on:
       - db
     image: wordpress:latest
-    ports:
-      - '8000:80'
+    container_name: wordpress
     restart: always
-    volumes:
-        - wp_data:/var/www/html
+    # Definiert das Envoirement
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+    # Definiert die Reccourcen und Limite
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+    # Definiert das Volume
+    volumes:
+        - wp_data:/var/www/html
+    # Definiert die Ports
+    ports:
+      - '8000:80'
+    # Definiert das Netzwerk
     networks:
       - wpnetwork
   # Datenbank Server
@@ -24,28 +38,45 @@ services:
     container_name: db
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
+    restart: unless-stopped
     ports:
-      - "3306"
+      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: wordpress
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 200M
     networks:
       - wpnetwork
     # phpmyadmin service
   phpmyadmin:
     depends_on:
       - db
+     # Holt das Image
     image: phpmyadmin:latest
     container_name: phpmyadmin
     restart: always
-    ports:
-      - '8080:80'
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: wordpress
+    ports:
+      - '8080:80'
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+        reservations:
+          cpus: '0.5'
+          memory: 200M
     networks:
       - wpnetwork
 # Speicher Volume
