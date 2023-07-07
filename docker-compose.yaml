@@ -1,23 +1,55 @@
 version: '3'
 
 services:
-### MySQL Container
-  mysql:
-    image: mysql:8.0
-    volumes:
-      - mysql_data:/var/lib/mysql
+    # Wordpress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - '8000:80'
+    restart: always
+    volumes: ['./:/var/www/html']
     environment:
-      - MYSQL_DATABASE=mywordpressdb
-      - MYSQL_USER=mywordpressuser
-      - MYSQL_PASSWORD=mywordpresspassword
-      - MYSQL_ROOT_PASSWORD=myrootpassword
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress-admin
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
     networks:
-      - my-network
-
+      - wpnetwork
+  # Datenbank Server
+  db:
+    image: mysql:5.7
+    container_name: db
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress-admin
+      MYSQL_PASSWORD: admin123
+    networks:
+      - wpnetwork
+    # phpmyadmin service
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: admin123
+    networks:
+      - wpnetwork
+# Speicher Volume
 volumes:
-  mysql_data:
+  db_data:
     driver: local
-
+#Netzwerk
 networks:
-  my-network:
+  wpnetwork:
     driver: bridge
