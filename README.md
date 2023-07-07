@@ -27,6 +27,7 @@
       - [Beispiel](#beispiel)
   - [Docker-Compose-file](#docker-compose-file)
     - [Wordpress-Service](#wordpress-service)
+    - [Mysql Service](#mysql-service)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -299,3 +300,48 @@ In diesem Abschnitt wird eine Docker-Compose-Konfigurationsdatei für die Bereit
 - `networks`: Hier wird das Netzwerk "wpnetwork" angegeben, das verwendet wird, um den WordPress-Container mit anderen Containern zu verbinden.
 
 Zusammenfassend wird in diesem Abschnitt eine Docker-Compose-Konfiguration definiert, um einen WordPress-Container mit einer Datenbank-Abhängigkeit, spezifischen Umgebungsvariablen, Ressourcenbegrenzungen und -reservierungen, Volumenverbindung, Portweiterleitung und Netzwerkverbindung zu erstellen.
+
+### Mysql Service
+```yaml
+ # ----------------- Datenbank Server ---------------------------
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: unless-stopped
+    # Definiert das Envoirement
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    # Definiert die Reccourcen und Limite
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+    # Definiert das Volume
+    volumes:
+      - db_data:/var/lib/mysql
+    # Definiert die Ports
+    ports:
+      - '3306:3306'
+    # Definiert das Netzwerk
+    networks:
+      - wpnetwork
+```
+In diesem Abschnitt wird eine Docker-Compose-Konfigurationsdatei für die Bereitstellung eines Datenbank-Servers (hier MySQL) definiert. Hier ist eine Zusammenfassung der verschiedenen Einstellungen:
+
+- `image`: Gibt das Docker-Image an, das für den Datenbank-Container verwendet werden soll. Hier wird die neueste Version von MySQL verwendet.
+- `container_name`: Legt den Namen des Containers auf "db" fest.
+- `restart`: Definiert die Neustartpolitik für den Container, in diesem Fall "unless-stopped" (neustarten, es sei denn, der Container wurde explizit gestoppt).
+- `environment`: Hier werden Umgebungsvariablen festgelegt, die von der MySQL-Datenbank verwendet werden, wie das Root-Passwort, der Datenbankname und die Zugangsdaten für den Benutzer.
+- `deploy`: Hier werden Ressourcenbegrenzungen und -reservierungen festgelegt, um die Nutzung von CPU und Speicher für den Container zu steuern.
+- `volumes`: Definiert ein Volume mit dem Namen "db_data", das verwendet wird, um den Datenbank-Container mit dem Verzeichnis `/var/lib/mysql` zu verbinden.
+- `ports`: Gibt an, dass der Port 3306 des Hosts auf den Port 3306 des Datenbank-Containers abgebildet werden soll, was bedeutet, dass die Datenbank über Port 3306 erreichbar ist.
+- `networks`: Hier wird das Netzwerk "wpnetwork" angegeben, das verwendet wird, um den Datenbank-Container mit anderen Containern zu verbinden.
+
+Zusammenfassend wird in diesem Abschnitt eine Docker-Compose-Konfiguration definiert, um einen MySQL-Datenbank-Container mit spezifischen Umgebungsvariablen, Ressourcenbegrenzungen und -reservierungen, Volumenverbindung, Portweiterleitung und Netzwerkverbindung zu erstellen.
