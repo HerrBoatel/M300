@@ -1,23 +1,28 @@
 version: '3'
 
 services:
-### MySQL Container
-  mysql:
-    image: mysql:8.0
+  # Datenbank Server
+  db:
+    image: mysql:5.7
+    container_name: db
     volumes:
-      - mysql_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
+    restart: always
     environment:
-      - MYSQL_DATABASE=mywordpressdb
-      - MYSQL_USER=mywordpressuser
-      - MYSQL_PASSWORD=mywordpresspassword
-      - MYSQL_ROOT_PASSWORD=myrootpassword
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
     networks:
-      - my-network
+      - wpnetwork
+  
 
+# Speicher Volume
 volumes:
-  mysql_data:
+  db_data:
     driver: local
 
+#Netzwerk
 networks:
-  my-network:
+  wpnetwork:
     driver: bridge
