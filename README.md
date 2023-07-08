@@ -34,6 +34,7 @@
     - [Docker-Sicherheitsmassnahmen](#docker-sicherheitsmassnahmen)
       - [Meine-Sicherheitsmerkmale](#meine-sicherheitsmerkmale)
   - [Docker-Container-aufsetzen](#docker-container-aufsetzen)
+  - [Testing](#testing)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -553,3 +554,11 @@ db            | 2023-07-07T20:50:56.041561Z 0 [Warning] [MY-011810] [Server] Ins
 db            | 2023-07-07T20:50:56.118278Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
 db            | 2023-07-07T20:50:56.118279Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
 ```
+## Testing
+
+| Testfall | Beschreibung | Erwartetes Ergebnis | Tatsächliches Ergebnis |
+| --- | --- | --- | --- |
+| Container-Start | Starten der Containers | Die Container werden erfolgreich gestartet |   |
+| Abhängigkeiten | Starten von Containern mit Abhängigkeiten | Abhängige Container werden vor den abhängigen Containern gestartet | Erfolgreicher Start der Container in der richtigen Reihenfolge |
+| Ressourcenbegrenzung | Festlegen von CPU- und Speicherlimits für einen Container | Der Container verwendet nicht mehr Ressourcen als die angegebenen Limits | Ressourcenverbrauch des Containers bleibt innerhalb der definierten Limits |
+| Persistenz von Daten | Speichern von Daten in Volumes | Daten in den Volumes bleiben erhalten, selbst wenn der Container neu gestartet wird | Erfolgreiche Persistenz der Daten in den Volumes |
