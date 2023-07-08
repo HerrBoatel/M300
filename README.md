@@ -559,7 +559,9 @@ db            | 2023-07-07T20:50:56.118278Z 0 [System] [MY-011323] [Server] X Pl
 db            | 2023-07-07T20:50:56.118279Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.33'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
 ```
 ## Testing
+Für das Testing habe ich einfach die bestimmten Testfälle genommen und versucht per commands danach das ergebnis auszulesen und zu zeigen. Bei dem Punkt Persistent volumes weiss ich nicht wie ich es einfach darstellen kann daher kann ich nur sagen das es funktioniert hat, ansonsten muss man es halt selber testen um es zu glauben. 
 
+Die test wurden recht einfach durchgeführt.
 | Testfall | Beschreibung | Erwartetes Ergebnis | Tatsächliches Ergebnis |
 | --- | --- | --- | --- |
 | Container-Start | Starten der Containers | Die Container werden erfolgreich gestartet | ![container start](https://raw.githubusercontent.com/HerrBoatel/m300/main/Bilder/docker-container-start.png)  |
