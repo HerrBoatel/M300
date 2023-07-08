@@ -35,6 +35,10 @@
       - [Meine-Sicherheitsmerkmale](#meine-sicherheitsmerkmale)
   - [Docker-Container-aufsetzen](#docker-container-aufsetzen)
   - [Testing](#testing)
+    - [Bewertungsraster-Checkliste](#bewertungsraster-checkliste)
+      - [Komplexität/ Umfang/Funktion](#komplexität-umfangfunktion)
+      - [Dokumentation](#dokumentation)
+  - [Quellenverzeichnis](#quellenverzeichnis)
 <!---------------------------Vorwort----------------------------->
 # Vorwort
 ## Danksagung
@@ -558,7 +562,44 @@ db            | 2023-07-07T20:50:56.118279Z 0 [System] [MY-010931] [Server] /usr
 
 | Testfall | Beschreibung | Erwartetes Ergebnis | Tatsächliches Ergebnis |
 | --- | --- | --- | --- |
-| Container-Start | Starten der Containers | Die Container werden erfolgreich gestartet |   |
-| Abhängigkeiten | Starten von Containern mit Abhängigkeiten | Abhängige Container werden vor den abhängigen Containern gestartet | Erfolgreicher Start der Container in der richtigen Reihenfolge |
-| Ressourcenbegrenzung | Festlegen von CPU- und Speicherlimits für einen Container | Der Container verwendet nicht mehr Ressourcen als die angegebenen Limits | Ressourcenverbrauch des Containers bleibt innerhalb der definierten Limits |
+| Container-Start | Starten der Containers | Die Container werden erfolgreich gestartet | ![container start](https://raw.githubusercontent.com/HerrBoatel/m300/main/Bilder/docker-container-start.png)  |
+| Abhängigkeiten | Starten von Containern mit Abhängigkeiten | Abhängige Container werden vor den abhängigen Containern gestartet | ![Abhängigkeiten](https://raw.githubusercontent.com/HerrBoatel/m300/main/Bilder/abh%C3%A4ngigkeiten.png) |
+| Ressourcenbegrenzung | Festlegen von CPU- und Speicherlimits für einen Container | Der Container verwendet nicht mehr Ressourcen als die angegebenen Limits | ![reccourcenverbrauch](https://raw.githubusercontent.com/HerrBoatel/m300/main/Bilder/reccourcen-limits.png)|
 | Persistenz von Daten | Speichern von Daten in Volumes | Daten in den Volumes bleiben erhalten, selbst wenn der Container neu gestartet wird | Erfolgreiche Persistenz der Daten in den Volumes |
+
+### Bewertungsraster-Checkliste
+#### Komplexität/ Umfang/Funktion
+- [x]  Komplexität, Umfang und Anteil Eigenleistung der Arbeit
+- [x]  Auf jedem Linux Docker-Enabled Rechner lauffähig
+- [x]  Korrekte Netzwerkkonfiguration
+- [x]  Keine Interaktion nötig nach dem Start
+- [ ]  Eigenes Image erzeugt und verwendet
+- [x]  Image wird mit docker-compose erstellt
+- [x]  Service benötigt mehrere Container (Bsp. Webserver mit Datenbank Backend)
+- [x]  Verwendung von 'merged' Compose Files
+- [x]  Verwendung von persistenten Volumes
+- [x]  Dokumentierte Sicherheitsmerkmale (Kapitel 35) implementiert (min. 1)
+- [x]  Git History (regelmässige Commit mit sinnvollem Kommentar )
+- [ ]  CI Implementiert
+  
+#### Dokumentation
+- [x]  Inhaltsverzeichnis (Verlinkt)
+- [x]  Service Beschreibung (welchen Zweck erfüllt der Service)
+- [x]  Service Anwendung (wir wird der Service angewendet)
+- [x]  Grafische Übersicht (Container, Systeme , Datenflüsse, Netzwerk , Port…)
+- [x]  Code Beschreibung (mit MD Code Blocks)
+- [x]  Dokumentiertes Testing (wie wird was getestet)
+- [x]  Korrektheit der Angaben, Umfang, alles Relevante beschrieben / Quellenverzeichnis
+- [x]  Markdown, 5 unterschiedliche Elemente verwendet
+- [x]  Übersichtlich (klar strukturiert, relevante Informationen schnell zugänglich)
+- [x]  Git History (regelmässige Commit mit sinnvollem Kommentar )
+
+## Quellenverzeichnis
+1. Präsis / Input von Herrn Berger
+2. ChatGPT
+3. Docker Cheatsheet: https://www.hosteurope.de/blog/diese-wichtigen-docker-befehle-sollten-sie-kennen/
+4. Docker volumes: https://www.ionos.de/digitalguide/server/knowhow/docker-container-volumes/
+5. docker stats: https://docs.docker.com/engine/reference/commandline/stats/
+6. docker images: https://lerneprogrammieren.de/docker-container-images-erstellen/
+7. docker compose: https://docs.docker.com/compose/
+8. dokcer compose official site: https://github.com/docker/compose
